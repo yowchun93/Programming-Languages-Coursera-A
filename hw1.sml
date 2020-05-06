@@ -60,3 +60,17 @@ fun dates_in_months(dates: (int*int*int) list, months: int list) =
 fun get_nth(sentence: string list, index: int) =
   if index = 1 then hd sentence
   else get_nth(tl sentence, index - 1)
+
+(* 7 *)
+(* val test7 = date_to_string (2013, 6, 1) = "June 1, 2013" *)
+(* get_nth (["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], 6 ) *)
+fun date_to_string(date: (int*int*int)) =
+  let
+    val day   = Int.toString(#3 date);
+    val year  = Int.toString(#1 date);
+    val month = get_nth (["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], #2 date);
+  in
+    month ^ " " ^ day ^ "," ^ " " ^ year
+  end
+
+(* 8 *)
