@@ -74,3 +74,40 @@ fun date_to_string(date: (int*int*int)) =
   end
 
 (* 8 *)
+(* val test8 = number_before_reaching_sum (10, [1,2,3,4,5]) = 3 *)
+(* returns n , first n + 1 adds to sum or more *)
+(* this is super interesting *)
+fun number_before_reaching_sum(sum: int, numbers: int list) =
+  if sum - hd(numbers) > 0
+    then 1 + number_before_reaching_sum(sum - hd numbers, tl numbers)
+    else 0
+
+(* 9 *)
+(* val test9 = what_month 70 = 3 *)
+(* i guess i have to come up with the list? *)
+fun what_month(day: int) =
+  let val list_days_months = [31,28,31,30,31,30,31,31,30,31,30,31]
+  in
+    number_before_reaching_sum(day, list_days_months) + 1
+  end
+
+(* 10 *)
+(* val test10 = month_range (31, 34) = [1,2,2,2] *)
+fun month_range(day1: int, day2: int) =
+  if day1 > day2
+  then []
+  else what_month(day1) :: month_range(day1 + 1, day2)
+
+(* 11 *)
+(* val test11 = oldest([(2012,2,28),(2011,3,31),(2011,4,28)]) = SOME (2011,3,31) *)
+fun oldest(dates: (int*int*int) list) =
+  if null dates then NONE
+  else if null (tl list_dates)
+  then SOME(hd list_dates)
+  else
+    let val val_ans = oldest(tl list_dates)
+      in
+        if is_older(hd list_dates, valOf val_ans)
+        then SOME(hd list_dates)
+        else val_ans
+      end
