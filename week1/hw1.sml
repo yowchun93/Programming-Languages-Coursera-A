@@ -12,16 +12,8 @@ fun is_older(date1: (int*int*int), date2: (int*int*int)) =
     else if getDate(date1) < getDate(date2) then true
     else false
 
- (* number_in_month ([(2012,2,28),(2013,12,1)],2) -> 1 *)
- (* without using Let *)
-
- (* fun number_in_month(dates: (int*int*int) list, month: int ) =
-    if null dates then 0
-    else if (#2 (hd dates) = month)
-    then 1 + number_in_month(tl dates, month)
-    else number_in_month(tl dates, month) *)
-
 (* let is used called in each execution context *)
+(* number_in_month [(2012,2,28),(2013,12,1),]  *)
 fun number_in_month(dates: (int*int*int) list, month: int) =
     if null dates then 0
     else
@@ -40,7 +32,6 @@ fun number_in_months(dates: (int*int*int) list, months: int list) =
 
 (* Operating on lists *)
 (* val test4 = dates_in_month ([(2012,2,28),(2013,12,1)], 2) = [(2012,2,28)] *)
-(* i did this myself YAY! *)
 fun dates_in_month(dates: (int*int*int) list, month: int) =
   if null dates then []
   else if #2 (hd dates) = month
@@ -84,11 +75,12 @@ fun number_before_reaching_sum(sum: int, numbers: int list) =
 
 (* 9 *)
 (* val test9 = what_month 70 = 3 *)
-(* i guess i have to come up with the list? *)
 fun what_month(day: int) =
-  let val list_days_months = [31,28,31,30,31,30,31,31,30,31,30,31]
+  let
+    val total_days_in_month_list = [31,28,31,30,31,30,31,31,30,31,30,31]
+    val total_month = number_before_reaching_sum(day, total_days_in_month_list) + 1
   in
-    number_before_reaching_sum(day, list_days_months) + 1
+    total_month
   end
 
 (* 10 *)
@@ -102,12 +94,11 @@ fun month_range(day1: int, day2: int) =
 (* val test11 = oldest([(2012,2,28),(2011,3,31),(2011,4,28)]) = SOME (2011,3,31) *)
 fun oldest(dates: (int*int*int) list) =
   if null dates then NONE
-  else if null (tl list_dates)
-  then SOME(hd list_dates)
+  else if null (tl dates) then SOME(hd dates)
   else
-    let val val_ans = oldest(tl list_dates)
+    let val oldest_date = oldest(tl dates)
       in
-        if is_older(hd list_dates, valOf val_ans)
-        then SOME(hd list_dates)
-        else val_ans
+        if is_older(hd dates, valOf oldest_date)
+        then SOME(hd dates)
+        else oldest_date
       end
