@@ -40,7 +40,6 @@ fun dates_in_month(dates: (int*int*int) list, month: int) =
 
 (* 5 *)
 (* val test5 = dates_in_months([(2012,2,28),(2013,12,1),(2011,3,31),(2011,4,28)],[2,3,4]) = [(2012,2,28),(2011,3,31),(2011,4,28)] *)
-(* need a helper 2 in [2,3,4] *)
 fun dates_in_months(dates: (int*int*int) list, months: int list) =
   if null months then []
   else
